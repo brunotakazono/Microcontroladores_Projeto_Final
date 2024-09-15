@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Invoice</title>
+    <script>
+        function convertDate(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            var startDateInput = document.getElementById('start_date');
+            var endDateInput = document.getElementById('end_date');
+
+            function formatDate(dateStr) {
+                var parts = dateStr.split('/');
+                return `${parts[2]}-${parts[1]}-${parts[0]}`;
+            }
+
+            startDateInput.value = formatDate(startDateInput.value);
+            endDateInput.value = formatDate(endDateInput.value);
+
+            // Submit the form programmatically
+            document.getElementById('invoice_form').submit();
+        }
+    </script>
+</head>
+<body>
+    <h1>Generate Invoice</h1>
+    <form id="invoice_form" action="/invoice/" method="post" onsubmit="convertDate(event)">
+        <label for="name">Client Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+        <label for="start_date">Start Date (DD/MM/YYYY):</label>
+        <input type="text" id="start_date" name="start_date" placeholder="DD/MM/YYYY" required><br><br>
+        <label for="end_date">End Date (DD/MM/YYYY):</label>
+        <input type="text" id="end_date" name="end_date" placeholder="DD/MM/YYYY" required><br><br>
+        <label for="rate_per_hour">Rate Per Hour (R$):</label>
+        <input type="number" id="rate_per_hour" name="rate_per_hour" step="0.01" required><br><br>
+        <input type="submit" value="Generate Invoice">
+    </form>
+    <br>
+    <a href="/">Back to home</a>
+</body>
+</html>
